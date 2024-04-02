@@ -37,16 +37,16 @@ install_bazelisk() {
 install_bazelisk_deps() {
   info 'Start installing Bazelisk dependencies...'
 
-  apt update
-  apt install -y wget
+  sudo apt update
+  sudo apt install -y wget
 }
 
 install_bazelisk_core() {
   info 'Start installing Bazelisk core...'
 
   wget "https://github.com/bazelbuild/bazelisk/releases/download/v${BAZELISK_VERSION}/bazelisk-linux-amd64"
-  mv bazelisk-linux-amd64 /usr/local/bin/bazel
-  chmod +x /usr/local/bin/bazel
+  sudo mv bazelisk-linux-amd64 /usr/local/bin/bazel
+  sudo chmod +x /usr/local/bin/bazel
 }
 
 install_onos() {
@@ -70,8 +70,8 @@ install_onos() {
 install_onos_deps() {
   info 'Start installing ONOS dependencies...'
 
-  apt update
-  apt install -y \
+  sudo apt update
+  sudo apt install -y \
     build-essential \
     bzip2 \
     curl \
@@ -81,7 +81,7 @@ install_onos_deps() {
     python3 \
     unzip \
     zip
-  ln -sf python2 /usr/bin/python
+  sudo ln -sf python2 /usr/bin/python
 }
 
 ensure_onos_source() {
@@ -140,8 +140,8 @@ install_mininet() {
 install_mininet_deps() {
   info 'Start installing Mininet dependencies...'
 
-  apt update
-  apt install -y \
+  sudo apt update
+  sudo apt install -y \
     arping \
     git \
     iputils-ping
@@ -185,8 +185,8 @@ install_ovs() {
 install_ovs_deps() {
   info 'Start installing Open vSwitch dependencies...'
 
-  apt update
-  apt install -y \
+  sudo apt update
+  sudo apt install -y \
     build-essential \
     python3 \
     wget
@@ -213,7 +213,7 @@ install_ovs_core() {
   cd "${OVS_DIR}"
   ./configure
   make
-  make install
+  sudo make install
 }
 
 register_ovs_service() {
@@ -234,10 +234,10 @@ ExecStop=${ovsctl} stop
 
 [Install]
 WantedBy=multi-user.target" >> "${filename}"
-  mv "${filename}" "/etc/systemd/system/${filename}"
+  sudo mv "${filename}" "/etc/systemd/system/${filename}"
 
-  systemctl enable "${OVS_SERVICE_NAME}"
-  systemctl start "${OVS_SERVICE_NAME}"
+  sudo systemctl enable "${OVS_SERVICE_NAME}"
+  sudo systemctl start "${OVS_SERVICE_NAME}"
 }
 
 main() {
@@ -247,8 +247,8 @@ main() {
 
   install_bazelisk
   install_onos
-  # install_mininet
-  # install_ovs
+  install_mininet
+  install_ovs
 
   info '************************************************'
   info '* The environment setup finished successfully! *'

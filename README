@@ -1,0 +1,7 @@
+
+***env_setup
+Go to directory where the “env_setup” is
+Change file permission to execute
+ $ chmod +x env_setup
+Execute the shell script
+ $ ./env_setup.sh
