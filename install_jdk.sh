@@ -9,7 +9,7 @@ info() {
 
 install_dependencies() {
   sudo apt-get -q update
-  sudo apt-get -yq install gnupg curl 
+  sudo apt-get -yq install gnupg curl -y
 }
 
 add_azul_public_key() {
